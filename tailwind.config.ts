@@ -5,13 +5,19 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/ui/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      backgroundColor: {
+        "primary": "#1d1e20",
+        "navcolor": "#101112",
+        "accent": "#282c34",
+      },
+      colors: {
+        "fg-primary": "#ffffff",
+        "fg-secondary": "#0ff0fc",
+        "fg-accent": "#fff01f",
       },
     },
   },
