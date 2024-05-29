@@ -21,11 +21,10 @@ export default function SideNav() {
 
   return isDesktop ? (
     <nav
-      className={`flex h-full flex-col bg-navcolor py-4 px-1 items-center font-medium text-[1.3rem] border-r-2 border-solid border-[#656970] transition-all ease-in-out duration-150 ${collapsed ? "w-20" : "w-64"
-        }`}
+      className={`flex h-full flex-col bg-navcolor py-4 px-1 items-center font-medium text-[1.3rem] border-r-2 border-solid border-[#656970] transition-all ease-in-out duration-150 ${collapsed ? "w-20" : "w-64"}`}
     >
       <div className="py-5 px-5">
-        <Link className="hover:underline" href="/" scroll={false}>
+        <Link href="/" scroll={false}>
           <Logo isDesktop={isDesktop} collapsed={collapsed} />
         </Link>
       </div>
@@ -77,4 +76,3 @@ export default function SideNav() {
 }
 
 // TODO make animations for the links
-// TODO collapsing the navbar for smaller screens etc

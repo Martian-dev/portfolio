@@ -1,5 +1,7 @@
 import { fira_code } from "@/ui/fonts";
 import Link from "next/link";
+import ContactForm from "@/ui/contact-form";
+import Socials from "@/ui/socials";
 
 export default function Contact() {
   return (
@@ -14,6 +16,10 @@ export default function Contact() {
             contact
           </h1>
         </Link>
+        <div className="flex flex-col items-center h-auto">
+          <ContactForm />
+          <Socials />
+        </div>
       </div>
     </section>
   );

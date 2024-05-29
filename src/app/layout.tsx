@@ -20,7 +20,10 @@ export default function RootLayout({
           <header className="flex-none">
             <SideNav />
           </header>
-          <div className="flex-grow lg:overflow-y-auto">{children}</div>
+          <div className="flex-grow lg:overflow-y-auto">
+            {children}
+            <footer className="bg-primary text-[0.8rem] border-t-2 border-solid border-[#656970] w-full h-auto p-4 flex justify-center items-center">© 2024 All Rights Reserved - Vaibhav</footer>
+          </div>
         </div>
       </body>
     </html>
