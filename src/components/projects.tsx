@@ -10,7 +10,7 @@ interface Project {
 const projects: Project[] = [
   {
     name: "chatrooms",
-    url: "https://https://chatroom-prod.up.railway.app/",
+    url: "https://chatroom-prod.up.railway.app/",
     desc: "basic chat room app built using html, express.js and socket.io."
   },
   {

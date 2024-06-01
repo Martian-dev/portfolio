@@ -1,5 +1,6 @@
 import { fira_code } from "@/ui/fonts";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -24,9 +25,16 @@ export default function Hero() {
           <p className="text-[1.6rem]">
             experimenting with various technologies.
           </p>
-          <button className="rounded-lg border-2 border-solid border-[#656970] bg-accent w-52 p-3 my-6">
-            visit my github
-          </button>
+          <Link
+            href="https://github.com/Martian-dev"
+            target="_blank"
+          >
+            <button
+              className="rounded-lg border-2 border-solid border-[#656970] bg-accent w-52 p-3 my-6"
+            >
+              visit my github
+            </button>
+          </Link>
         </div>
         <div className="row-start-1 md:col-start-2 h-full w-full py-16 xl:px-20 xl:py-20 flex justify-center">
           <div>
