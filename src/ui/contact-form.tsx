@@ -1,6 +1,20 @@
+"use client"
+import sendEmail from "@/utils/actions";
+import { useRef } from "react";
+
 export default function ContactForm() {
+  const ref = useRef<HTMLFormElement>(null);
+
   return (
-    <form className="flex flex-col gap-2 p-2 max-w-xl w-full text-[1.2rem]">
+    <form
+      ref={ref}
+      className="flex flex-col gap-2 p-2 max-w-xl w-full text-[1.2rem]"
+      action={async (formData) => {
+        await sendEmail(formData);
+        ref.current?.reset();
+      }}
+      method="PUT"
+    >
       <label htmlFor="name">name:</label>
       <input
         className="bg-primary border-solid border-2 border-[#656970] p-2 active:border-[#656970] rounded-md"
@@ -10,7 +24,7 @@ export default function ContactForm() {
         required />
       <label htmlFor="email">email:</label>
       <input className="bg-primary border-solid border-2 border-[#656970] p-2 active:border-[#656970] rounded"
-        type="text"
+        type="email"
         name="email"
         placeholder="anatoly@example.com"
         required />
@@ -21,7 +35,7 @@ export default function ContactForm() {
         placeholder="you are awesome."
         required />
       <button
-        className="w-full bg-accent rounded-md mt-2"
+        className="w-full bg-accent rounded-md mt-2 hover:scale-105 transition-all ease-in duration-200"
         type="submit">
         submit
       </button>
