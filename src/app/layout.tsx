@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { roboto_slab } from "@/ui/fonts";
+import { Analytics } from "@vercel/analytics/next";
 import "@/ui/globals.css";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
         <div className="flex-grow lg:overflow-y-auto">
           {children}
         </div>
+        <Analytics />
       </body>
     </html>
   );
