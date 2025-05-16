@@ -9,54 +9,50 @@ interface Project {
 
 const projects: Project[] = [
   {
-    name: "chatrooms",
-    url: "https://chatroom-prod.up.railway.app/",
-    desc: "basic chat room app built using html, express.js and socket.io."
-  },
-  {
-    name: "financial-dashboard",
-    url: "https://nextjs-dashboard-eight-theta-17.vercel.app/",
-    desc: "non functional financial dashboard with user authentication built using next.js."
+    name: "zen",
+    desc: "my implementation of how a frictionless task scheduler is supposed to be.",
+    url: "https://github.com/Martian-dev/zen"
   },
   {
     name: "tic-tac-toe",
     url: "https://github.com/Martian-dev/TicTacToe",
-    desc: "multiplayer tic tac toe game built using html, css, js, express.js and socket.io."
+    desc: "multiplayer tictactoe game."
   },
   {
-    name: "planet-simulation",
-    url: "https://github.com/Martian-dev/planet-simulation-python",
-    desc: "2D planet simulation using python and pygame."
+    name: "dash",
+    url: "https://github.com/Martian-dev/dash",
+    desc: "posix compliant shell written using c++."
   },
   {
-    name: "calculator",
-    url: "https://github.com/Martian-dev/calculator.java",
-    desc: "scientific calculator built using java swing."
+    name: "protein.sh",
+    url: "https://github.com/Martian-dev/protein.sh",
+    desc: "inspired by terminal.shop, i wanted to build my own terminal based shop, for fitness supplements. trying to do it with a language i am not familiar with (go)",
   },
   {
-    name: "password-manager",
-    url: "https://github.com/Martian-dev/password-manager",
-    desc: "cli based password manager built using python and mysql database."
+    name: "ace",
+    url: "https://github.com/Martian-dev/ace",
+    desc: "yes another task management app, but this time aimed at teams and organizations"
   },
 ];
 
 export default function Projects() {
   return (
     <section
-      className="p-10 h-auto lg:h-full w-full bg-primary border-solid border-b-2 border-b-[#656970]"
+      className="p-6 h-auto lg:h-full w-full bg-primary"
       id="projects"
     >
-      <div className="h-full w-full px-8 md:px-16 lg:px-20 leading-loose">
+      <div className="h-full w-full leading-8">
         <Link
           href="#projects"
         >
           <h1
             className={`${fira_code.className} text-[2rem] font-semibold text-fg-secondary hover:underline`}
           >
-            projects
+            Builds
           </h1>
         </Link>
         <ul className="text-[1.2rem] py-3">
+          <p>these are my ongoing projects</p>
           {
             projects.map(({ name, url, desc }: Project, i) => (
               <li key={i} className="py-2">
@@ -73,6 +69,7 @@ export default function Projects() {
             ))
           }
         </ul>
+        <p className="text-[1.2rem] py-3">there are lots of other projects, you can find them in my <Link className="text-gray-300 hover:underlined" href="https://github.com/Martian-dev">github</Link> and my <Link className="text-gray-300 hover:underlined" href="https://www.kaggle.com/martian7/code">kaggle.</Link></p>
       </div>
     </section>
   );

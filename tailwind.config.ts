@@ -10,14 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       backgroundColor: {
-        "primary": "#1d1e20",
+        "primary": "#262427",
         "navcolor": "#101112",
         "accent": "#282c34",
       },
       colors: {
-        "fg-primary": "#ffffff",
-        "fg-secondary": "#0ff0fc",
-        "fg-accent": "#fff01f",
+        "fg-primary": "#fcfcfa",
+        "fg-secondary": "#49cae4",
+        "fg-accent": "#ffca58",
       },
     },
   },

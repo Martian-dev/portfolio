@@ -4,32 +4,28 @@ import Link from "next/link";
 export default function About() {
   return (
     <section
-      className="p-10 h-auto lg:h-full w-full bg-primary border-solid border-b-2 border-b-[#656970]"
+      className="px-6 h-auto lg:h-full w-full bg-primary"
       id="about"
     >
-      <div className="h-full w-full px-8 md:px-16 lg:px-20 leading-loose">
+      <div className="h-full w-full">
         <Link
           href="#about"
         >
           <h1
             className={`${fira_code.className} text-[2rem] font-semibold text-fg-secondary hover:underline`}
           >
-            about
+            About
           </h1>
         </Link>
-        <p className="text-[1.2rem]">
+        <p className="text-[1.2rem] leading-8">
           <br />
-          {"i'm"} vaibhav, a passionate undergraduate engineering student on a
-          mission to explore the frontiers of technology and science.
-          <br />
-          <br />
-          tinkering with code in web development, game development, and app
-          development to diving into the exciting world of machine learning, I
-          thrive on experimentation across various fields.
+          {"i'm"} vaibhav, i build projects with new technologies, and explore the advancements in the field.
           <br />
           <br />
-          my journey is fueled by an insatiable curiosity and a love for turning
-          ideas into reality.
+          recently, i have been working with {"LLM's"} and learning ML. you can find my crafts over at <Link className="text-gray-300 hover:underline" href="https://github.com/Martian-dev">github.</Link>
+          <br />
+          <br />
+          i am also actively looking for internships/work opportuntities, so if you got something for me reach out to me through my <Link href="https://x.com/martian75007" className="text-gray-300 hover:underline">twitter profile.</Link>
           <br />
           <br />
         </p>
