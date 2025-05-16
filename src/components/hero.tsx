@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <main className="pt-6 h-auto lg:h-full w-full bg-primary">
       <div className="h-full w-full grid md:grid-cols-2 place-items-center justify-center">
-        <div className="row-start-1 md:col-start-1 h-full w-full py-8 flex justify-start">
+        <div className="row-start-1 md:col-start-1 h-full w-full py-8 flex justify-center lg:justify-start">
           <div>
             <Image
               src="/images/pfp.png"
@@ -18,7 +18,7 @@ export default function Hero() {
             />
           </div>
         </div>
-        <div className="h-full w-full py-6 leading-loose flex flex-col items-end justify-center">
+        <div className="h-full w-full py-6 leading-loose flex flex-col items-center lg:items-end justify-center">
           <div className="flex flex-col items-center">
             <h1 className="text-5xl py-1">
               Vaibhav
