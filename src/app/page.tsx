@@ -44,7 +44,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
             <div className="absolute inset-0 scanline overflow-hidden">
               <div
-                className="absolute inset-0 w-full h-[2px] bg-primary/20 shadow-[0_0_15px_rgba(107,251,154,0.5)] opacity-50"
+                className="absolute inset-0 w-full h-[2px] bg-primary/20 shadow-[0_0_15px_rgba(73,202,228,0.45)] opacity-50"
                 style={{ animation: "scanline-beam 8s linear infinite" }}
               />
             </div>
@@ -81,16 +81,18 @@ export default function Home() {
                     Actively working, building, and researching in the tech field. Focused on AI, Agency, LLMs, ML & DL, and system architecture to engineer resilient and autonomous ecosystems.
                   </p>
                   <div className="flex flex-wrap gap-4 pt-8">
-                    <button className="group relative px-8 py-4 bg-primary text-on-primary font-label-caps text-label-caps rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(107,251,154,0.4)]">
+                    <button className="group relative px-8 py-4 bg-primary text-on-primary font-label-caps text-label-caps rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(73,202,228,0.35)]">
                       <span className="relative z-10">ENTER_ECOSYSTEM</span>
                       <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                     </button>
+                    {/* Research is a work in progress. Restore this CTA when it is ready.
                     <Link
                       href="/research"
                       className="px-8 py-4 bg-surface-container-high/50 border border-outline-variant/30 text-on-surface font-label-caps text-label-caps rounded-sm hover:bg-surface-container-high transition-all"
                     >
                       VIEW_RESEARCH_PAPERS
                     </Link>
+                    */}
                   </div>
                 </div>
 
@@ -150,6 +152,7 @@ export default function Home() {
                 <p className="text-body-md font-body-md text-on-surface-variant mb-6">
                   Distributing AI workloads across decentralized nodes for optimal model performance.
                 </p>
+                {/* Research is a work in progress. Restore this CTA when it is ready.
                 <Link
                   href="/research"
                   className="flex items-center gap-2 text-secondary font-label-caps text-label-caps group-hover:text-primary transition-colors"
@@ -159,6 +162,7 @@ export default function Home() {
                     arrow_forward
                   </span>
                 </Link>
+                */}
               </div>
               <span className="material-symbols-outlined absolute -bottom-6 -right-6 text-[120px] text-secondary opacity-10 group-hover:scale-110 transition-transform duration-500">
                 share

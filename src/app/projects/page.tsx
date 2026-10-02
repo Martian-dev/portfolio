@@ -18,11 +18,11 @@ export default function Projects() {
         const mouseEvent = e as MouseEvent;
         const rect = (card as HTMLElement).getBoundingClientRect();
         const x = mouseEvent.clientX - rect.left;
-        (card as HTMLElement).style.borderColor = `rgba(74, 222, 128, ${Math.min(0.6, 0.2 + (x / rect.width) * 0.4)})`;
+        (card as HTMLElement).style.borderColor = `rgba(73, 202, 228, ${Math.min(0.6, 0.2 + (x / rect.width) * 0.4)})`;
       };
       
       const leaveHandler = () => {
-        (card as HTMLElement).style.borderColor = 'rgba(74, 222, 128, 0.2)';
+        (card as HTMLElement).style.borderColor = 'rgba(73, 202, 228, 0.2)';
       };
       
       card.addEventListener('mousemove', handler);
@@ -69,7 +69,7 @@ export default function Projects() {
     let animId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#4ade80';
+      ctx.fillStyle = '#49cae4';
       particles.forEach(p => {
         p.y -= p.speed;
         if (p.y < 0) p.y = canvas.height;
