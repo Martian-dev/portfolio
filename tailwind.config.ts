@@ -12,7 +12,7 @@ const config: Config = {
     extend: {
       colors: {
         "surface-tint": "#49cae4",
-        "outline": "#8c8790",
+        "outline": "#918c95",
         "on-secondary-container": "#262427",
         "inverse-surface": "#fcfcfa",
         "on-primary-fixed-variant": "#153f48",

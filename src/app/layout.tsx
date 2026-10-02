@@ -4,9 +4,9 @@ import { Analytics } from "@vercel/analytics/next";
 import "@/ui/globals.css";
 
 export const metadata: Metadata = {
-  title: "Vaibhav | Applied AI & Systems Architecture",
+  title: "Vaibhav — projects and things",
   description:
-    "Actively working, building, and researching in the tech field. Focused on AI, Agency, LLMs, ML & DL, and system architecture to engineer resilient ecosystems.",
+    "Vaibhav's projects, experiments, notes, and assorted attempts at making computers useful.",
 };
 
 export default function RootLayout({

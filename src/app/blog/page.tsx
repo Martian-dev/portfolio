@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import Footer from "@/components/footer";
-import MobileNav from "@/components/mobile-nav";
 import Navbar from "@/components/navbar";
 import {
   formatWritingDate,
@@ -224,7 +223,6 @@ export default function BlogPage() {
       </main>
 
       <Footer />
-      <MobileNav />
     </>
   );
 }

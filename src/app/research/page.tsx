@@ -1,6 +1,5 @@
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import MobileNav from "@/components/mobile-nav";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { researchData } from "@/data/content";
@@ -185,7 +184,6 @@ export default function ResearchPage() {
         </div>
       </main>
       <Footer />
-      <MobileNav />
     </>
   );
 }

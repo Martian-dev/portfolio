@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import MobileNav from "@/components/mobile-nav";
 import { projectsData } from "@/data/content";
 
 export default function Projects() {
@@ -297,7 +296,6 @@ export default function Projects() {
         </div>
       </main>
       <Footer />
-      <MobileNav />
     </div>
   );
 }

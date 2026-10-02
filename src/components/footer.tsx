@@ -1,85 +1,56 @@
-"use client";
-
-import { useState, useEffect } from "react";
+const links = [
+  { label: "writing", href: "/blog", external: false },
+  { label: "github", href: "https://github.com/Martian-dev", external: true },
+  { label: "x / twitter", href: "https://x.com/martian75007", external: true },
+  { label: "linkedin", href: "https://linkedin.com/in/vaibhav-p-dev", external: true },
+  { label: "youtube", href: "https://www.youtube.com/@_martiandev", external: true },
+  { label: "kaggle", href: "https://www.kaggle.com/martian7/code", external: true },
+  {
+    label: "resume",
+    href: "https://drive.google.com/file/d/1w9pB3qPGOD1ds-C0W-ZpgHh6Z07nXlld/view?usp=sharing",
+    external: true,
+  },
+];
 
 export default function Footer() {
-  const [logoText, setLogoText] = useState("Vaibhav");
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const timeouts: ReturnType<typeof setTimeout>[] = [];
-    const glitch = () => {
-      setLogoText("V@i!h#v");
-      timeouts.push(setTimeout(() => setLogoText("Martian"), 100));
-      timeouts.push(setTimeout(() => setLogoText("M*rt!@n"), 2000));
-      timeouts.push(setTimeout(() => setLogoText("Vaibhav"), 2100));
-    };
-    const interval = setInterval(() => {
-      glitch();
-    }, 4000);
-    return () => {
-      clearInterval(interval);
-      timeouts.forEach(clearTimeout);
-    };
-  }, []);
-
   return (
-    <footer className="relative w-full py-16 bg-surface-container-lowest border-t border-primary-container/20">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-        
-        <div className="space-y-6">
-          <h2 className="font-headline-md text-primary">{logoText}</h2>
-          <p className="text-body-md font-body-md text-on-surface-variant">
-            Actively working, building, and researching in the tech field. Focused on AI, Agency, LLMs, ML & DL, and system architecture to engineer resilient ecosystems.
-          </p>
-          <div className="flex gap-4">
-            <a href="https://github.com/Martian-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="material-symbols-outlined flex size-11 items-center justify-center rounded-full border border-outline-variant text-outline transition-colors hover:border-primary hover:text-primary">terminal</a>
-            <a href="https://linkedin.com/in/vaibhav-p-dev" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="material-symbols-outlined flex size-11 items-center justify-center rounded-full border border-outline-variant text-outline transition-colors hover:border-primary hover:text-primary">hub</a>
-            <a href="https://www.youtube.com/@_martiandev" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="material-symbols-outlined flex size-11 items-center justify-center rounded-full border border-outline-variant text-outline transition-colors hover:border-primary hover:text-primary">play_circle</a>
-          </div>
+    <footer
+      id="links"
+      className="scroll-mt-20 border-t border-outline-variant/60 bg-surface-container-lowest px-margin-mobile pb-10 pt-24 md:px-margin-desktop md:pb-12 md:pt-32"
+    >
+      <div className="mx-auto max-w-container-max">
+        <p className="font-technical-sm text-xs lowercase tracking-[0.12em] text-primary">
+          links and stuff
+        </p>
+        <h2 className="mt-3 max-w-4xl font-display-lg text-[clamp(2.65rem,5.5vw,5.1rem)] font-bold lowercase leading-[0.93] tracking-[-0.05em] text-on-background">
+          anyway, here&apos;s the internet part.
+        </h2>
+        <p className="mt-6 text-base text-on-surface-variant">pick your poison.</p>
+
+        <div className="mt-14 grid grid-cols-2 border-t border-outline-variant/60 sm:grid-cols-3 lg:grid-cols-7">
+          {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
+              className="group flex min-h-24 items-center justify-between gap-3 border-b border-r border-outline-variant/60 px-4 text-base lowercase text-on-surface-variant transition-colors duration-200 hover:bg-surface-container-low hover:text-primary sm:px-5"
+            >
+              {link.label}
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              >
+                ↗
+              </span>
+            </a>
+          ))}
         </div>
 
-        <div className="flex flex-col gap-4">
-          <h4 className="text-label-caps font-label-caps text-primary/60">LINKS_INDEX</h4>
-          <ul className="space-y-2">
-            <li>
-              <a href="https://github.com/Martian-dev" target="_blank" rel="noopener noreferrer" className="text-technical-sm font-technical-sm text-outline hover:text-tertiary transition-colors">GitHub</a>
-            </li>
-            <li>
-              <a href="https://linkedin.com/in/vaibhav-p-dev" target="_blank" rel="noopener noreferrer" className="text-technical-sm font-technical-sm text-outline hover:text-tertiary transition-colors">LinkedIn</a>
-            </li>
-            <li>
-              <a href="https://instagram.com/martian.builds" target="_blank" rel="noopener noreferrer" className="text-technical-sm font-technical-sm text-outline hover:text-tertiary transition-colors">Instagram</a>
-            </li>
-            <li>
-              <a href="https://www.youtube.com/@_martiandev" target="_blank" rel="noopener noreferrer" className="text-technical-sm font-technical-sm text-outline hover:text-tertiary transition-colors">YouTube</a>
-            </li>
-            <li>
-              <a href="https://www.kaggle.com/martian7/code" target="_blank" rel="noopener noreferrer" className="text-technical-sm font-technical-sm text-outline hover:text-tertiary transition-colors">Kaggle</a>
-            </li>
-          </ul>
+        <div className="mt-10 flex flex-col gap-2 border-t border-outline-variant/40 pt-5 font-technical-sm text-[10px] lowercase tracking-[0.08em] text-outline sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 vaibhav</p>
+          <p>made with too many tabs open.</p>
         </div>
-
-        <div className="flex flex-col gap-4">
-          <h4 className="text-label-caps font-label-caps text-primary/60">DIRECT_CHANNEL</h4>
-          <p className="text-body-md font-body-md text-on-surface-variant">
-            Have an interesting system to build, a technical problem to unpack, or feedback on a note?
-          </p>
-          <a
-            href="https://x.com/martian75007"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center gap-2 self-start font-label-caps text-label-caps text-secondary transition-colors hover:text-primary"
-          >
-            START_A_CONVERSATION
-            <span aria-hidden="true" className="material-symbols-outlined text-base">arrow_outward</span>
-          </a>
-          <p className="text-technical-sm font-technical-sm text-outline/50 mt-4 italic opacity-80">
-            © 2026 Vaibhav // ALL RIGHTS RESERVED
-          </p>
-        </div>
-
       </div>
     </footer>
   );

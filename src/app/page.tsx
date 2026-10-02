@@ -1,237 +1,323 @@
-"use client";
-
-import React, { useEffect } from "react";
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
-import MobileNav from "@/components/mobile-nav";
+import Image from "next/image";
 import Link from "next/link";
 
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
+import { getAllWritingPosts } from "@/lib/writing";
+
+const projects = [
+  {
+    index: "01",
+    name: "zen",
+    description:
+      "my implementation of how a frictionless task scheduler is supposed to be.",
+    stack: "productivity / scheduling",
+    url: "https://github.com/Martian-dev/zen",
+  },
+  {
+    index: "02",
+    name: "dash",
+    description: "a POSIX-compliant shell written in C++. because apparently one shell was not enough.",
+    stack: "c++ / systems",
+    url: "https://github.com/Martian-dev/dash",
+  },
+  {
+    index: "03",
+    name: "protein.sh",
+    description:
+      "a terminal shop for fitness supplements, built while learning Go. niche? yes. fun? also yes.",
+    stack: "go / terminal",
+    url: "https://github.com/Martian-dev/protein.sh",
+  },
+  {
+    index: "04",
+    name: "ace",
+    description:
+      "yes, another task management app. this one is aimed at teams and organizations.",
+    stack: "teams / productivity",
+    url: "https://github.com/Martian-dev/ace",
+  },
+];
+
+const experience = [
+  {
+    when: "right now",
+    title: "applied AI & LLMs",
+    description:
+      "building with agents, model workflows, and the mildly chaotic systems around them.",
+  },
+  {
+    when: "also right now",
+    title: "machine learning",
+    description:
+      "learning the useful parts by building things, breaking them, and checking why.",
+  },
+  {
+    when: "the prequel",
+    title: "general software things",
+    description:
+      "shells, schedulers, multiplayer games, web apps, and whatever seemed interesting that week.",
+  },
+];
+
 export default function Home() {
-  useEffect(() => {
-    const cards = document.querySelectorAll(".glass-card");
-    const handler = (card: Element) => (e: Event) => {
-      const mouseEvent = e as MouseEvent;
-      const rect = (card as HTMLElement).getBoundingClientRect();
-      const x = mouseEvent.clientX - rect.left;
-      const y = mouseEvent.clientY - rect.top;
-      (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
-      (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
-    };
-    const handlers = Array.from(cards).map((card) => {
-      const h = handler(card);
-      card.addEventListener("mousemove", h);
-      return { card, h };
-    });
-    return () =>
-      handlers.forEach(({ card, h }) =>
-        card.removeEventListener("mousemove", h)
-      );
-  }, []);
+  const posts = getAllWritingPosts().slice(0, 2);
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="fixed left-4 top-3 z-[70] -translate-y-24 rounded bg-primary px-4 py-3 font-technical-sm text-xs font-bold text-on-primary transition-transform focus:translate-y-0"
+      >
+        skip to the good stuff
+      </a>
       <Navbar />
-      <main className="pt-20">
-        {/* Hero Section */}
-        <section className="relative min-h-[921px] flex flex-col items-center justify-center overflow-hidden px-margin-mobile md:px-margin-desktop">
-          {/* Background */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJt5ZR3Jpoy-xdokNEXqrhNEhsg1kqiQijWh-6SBPoPNIr_MPllvzb9CSnRwsSRAZF41zp_M8PGQPFRZbZf9mQBNZF-Z9mnDOii9_6ctjxX3wEID1ZIYMR3IEZYMWRUlkLdAnxuDKU7gFUyqdsw7ps3oHRYxGWOtyCB9Srf-E9OftMz1BOsNWkVhpEmhGfnsooJavHDTGEohWXJ9UvJcTP-PlnjWhFuTanT4nrTWF6kUe4rFCP6QlJ_QCvzE6v_jXyLCM4O0cKRWAB"
-              alt="Lush Forest"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
-            <div className="absolute inset-0 scanline overflow-hidden">
-              <div
-                className="absolute inset-0 w-full h-[2px] bg-primary/20 shadow-[0_0_15px_rgba(73,202,228,0.45)] opacity-50"
-                style={{ animation: "scanline-beam 8s linear infinite" }}
-              />
+
+      <main id="main-content" className="pt-20">
+        <section className="intro-hero px-margin-mobile md:px-margin-desktop">
+          <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-container-max grid-cols-1 items-center gap-14 py-16 lg:grid-cols-12 lg:gap-gutter lg:py-20">
+            <div className="lg:col-span-8">
+              <p className="font-technical-sm text-xs lowercase tracking-[0.12em] text-primary">
+                hi, internet.
+              </p>
+              <h1 className="mt-7 max-w-[12ch] font-display-lg text-[clamp(3.6rem,8.2vw,7.4rem)] font-extrabold leading-[0.87] tracking-[-0.06em] text-on-background">
+                i&apos;m vaibhav.
+                <span className="mt-4 block text-primary">i make computers do things.</span>
+              </h1>
+              <p className="intro-aside mt-7 font-headline-md text-[clamp(1.2rem,2.4vw,1.7rem)] font-medium text-secondary">
+                occasionally, useful things.
+              </p>
+              <p className="mt-9 max-w-xl text-lg leading-8 text-on-surface-variant">
+                student, developer, and serial side-project starter. currently
+                messing around with AI, LLMs, and ML. when that gets boring, i
+                build something else.
+              </p>
+              <a
+                href="#work"
+                className="mt-10 inline-flex min-h-11 items-center gap-3 font-technical-sm text-xs lowercase text-outline transition-colors duration-200 hover:text-on-surface"
+              >
+                the stuff is down there <span aria-hidden="true">↓</span>
+              </a>
             </div>
-          </div>
 
-          {/* Terminal content */}
-          <div className="relative z-10 w-full max-w-5xl">
-            <div className="glass-card p-1 lg:p-2 rounded-2xl overflow-hidden shadow-2xl border border-primary/20">
-              <div className="bg-surface-container-lowest/80 rounded-xl p-8 md:p-12 border border-white/5 relative">
-                {/* Top bar */}
-                <div className="flex items-center justify-between mb-12 border-b border-primary/10 pb-4">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-error/50" />
-                    <div className="w-3 h-3 rounded-full bg-secondary/50" />
-                    <div className="w-3 h-3 rounded-full bg-primary/50" />
-                  </div>
-                  <div className="text-technical-sm font-technical-sm text-primary/60 tracking-widest">
-                    SECURE_CONNECTION
-                  </div>
+            <figure className="order-first mx-auto w-full max-w-[20rem] lg:order-none lg:col-span-4 lg:max-w-none">
+              <div className="avatar-card">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[1.2rem] bg-surface-container-lowest">
+                  <Image
+                    src="/images/pfp.png"
+                    alt="Vaibhav's illustrated online avatar"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 340px, 320px"
+                    className="object-cover object-center"
+                  />
                 </div>
-
-                {/* Headline area */}
-                <div className="space-y-6">
-                  <div className="text-label-caps font-label-caps text-secondary tracking-[0.3em]">
-                    SYSTEMS INITIALIZED
-                  </div>
-                  <h1 className="text-display-lg-mobile md:text-display-lg font-display-lg text-on-background leading-none max-w-4xl">
-                    APPLIED AI //{" "}
-                    <span className="text-primary text-glow italic">
-                      SYSTEMS ARCHITECTURE
-                    </span>
-                  </h1>
-                  <p className="text-body-lg font-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
-                    Actively working, building, and researching in the tech field. Focused on AI, Agency, LLMs, ML & DL, and system architecture to engineer resilient and autonomous ecosystems.
-                  </p>
-                  <div className="flex flex-wrap gap-4 pt-8">
-                    <button className="group relative px-8 py-4 bg-primary text-on-primary font-label-caps text-label-caps rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(73,202,228,0.35)]">
-                      <span className="relative z-10">ENTER_ECOSYSTEM</span>
-                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                    </button>
-                    {/* Research is a work in progress. Restore this CTA when it is ready.
-                    <Link
-                      href="/research"
-                      className="px-8 py-4 bg-surface-container-high/50 border border-outline-variant/30 text-on-surface font-label-caps text-label-caps rounded-sm hover:bg-surface-container-high transition-all"
-                    >
-                      VIEW_RESEARCH_PAPERS
-                    </Link>
-                    */}
-                  </div>
-                </div>
-
-                {/* Bottom info */}
-                <div className="mt-16 flex flex-wrap gap-8 items-center text-technical-sm font-technical-sm text-primary/40">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                    LATENCY: 14MS
-                  </div>
-                  <div>LOCATION: 37.7749° N, 122.4194° W</div>
-                  <div className="text-secondary/60 ml-auto">
-                    © 2024 Vaibhav
-                  </div>
-                </div>
+                <figcaption className="px-2 pt-4 font-technical-sm text-[10px] lowercase tracking-[0.08em] text-outline">
+                  <span>face reveal? nice try.</span>
+                </figcaption>
               </div>
-            </div>
+            </figure>
           </div>
         </section>
 
-
-
-        {/* Bento Grid Section */}
-        <section className="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-            {/* Large Card */}
-            <div className="md:col-span-8 glass-card rounded-3xl p-8 flex flex-col justify-end min-h-[450px] relative overflow-hidden group border border-outline-variant/30">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvc5zMwsMQ8CYO9eoDuk7Hh_mfPMq0biQgnRZyU61i9zu2g0gPXMnDFUb_Pto6wCXlErIIMI0WsoLfMogtv6v6cMl5jmDNI0M6eQSkEe3rTwncUpdJeIw3FG0f6jOrKSvZNF02xEKgVHLPEA5jf7bDzr2--fVgO9_Q89VHx8NRLMPh1ali7QoOXN-Kq5ZUe1D02DPPFG_5JTzWdEQlY8Jsi_uLlrqHTNVBYRnqI0Eb5w2hBaqNC-YJCQQkPXqna_JayK50DP1S0-qB"
-                alt="Neural Infrastructure"
-                className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-              <div className="relative z-10">
-                <div className="inline-block px-3 py-1 mb-4 rounded-sm bg-primary/20 text-primary border border-primary/30 text-label-caps font-label-caps">
-                  PRIMARY_CORE
-                </div>
-                <h2 className="text-headline-md font-headline-md text-on-background mb-4">
-                  Autonomous AI Infrastructure
+        <section
+          id="work"
+          className="scroll-mt-20 border-t border-outline-variant/60 px-margin-mobile py-24 md:px-margin-desktop md:py-32"
+        >
+          <div className="mx-auto max-w-container-max">
+            <header className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-gutter">
+              <div className="md:col-span-8">
+                <p className="font-technical-sm text-xs lowercase tracking-[0.12em] text-secondary">
+                  work
+                </p>
+                <h2 className="mt-3 font-display-lg text-[clamp(2.65rem,5.3vw,4.8rem)] font-bold leading-[0.94] tracking-[-0.05em] text-on-background">
+                  stuff i&apos;ve made.
                 </h2>
-                <p className="text-body-md font-body-md text-on-surface-variant max-w-xl">
-                  Constructing robust frameworks that thrive on complex data structures, creating interconnected webs of intelligence and agents that scale natively.
-                </p>
               </div>
-            </div>
+              <p className="max-w-sm self-end text-base leading-7 text-on-surface-variant md:col-span-4">
+                a few favorites. the rest are probably hiding on github.
+              </p>
+            </header>
 
-            {/* Small Card 1 */}
-            <div className="md:col-span-4 glass-card rounded-3xl p-8 border border-secondary/20 relative overflow-hidden group">
-              <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center mb-6 relative z-10">
-                <span className="material-symbols-outlined text-secondary">
-                  psychology_alt
-                </span>
-              </div>
-              <div className="relative z-10">
-                <h3 className="text-headline-md font-headline-md text-on-background mb-3">
-                  Distributed Inference
-                </h3>
-                <p className="text-body-md font-body-md text-on-surface-variant mb-6">
-                  Distributing AI workloads across decentralized nodes for optimal model performance.
-                </p>
-                {/* Research is a work in progress. Restore this CTA when it is ready.
-                <Link
-                  href="/research"
-                  className="flex items-center gap-2 text-secondary font-label-caps text-label-caps group-hover:text-primary transition-colors"
+            <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+              {projects.map((project) => (
+                <a
+                  key={project.name}
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-tile group relative flex min-h-64 flex-col overflow-hidden rounded-2xl border border-outline-variant/70 bg-surface-container-low p-6 transition-colors duration-200 hover:border-primary/70 md:min-h-72 md:p-8"
                 >
-                  INITIALIZE_EXPLORATION
-                  <span className="material-symbols-outlined text-sm">
-                    arrow_forward
-                  </span>
-                </Link>
-                */}
-              </div>
-              <span className="material-symbols-outlined absolute -bottom-6 -right-6 text-[120px] text-secondary opacity-10 group-hover:scale-110 transition-transform duration-500">
-                share
-              </span>
+                  <div className="flex items-start justify-between gap-5">
+                    <span className="font-technical-sm text-[10px] text-outline">
+                      {project.index}
+                    </span>
+                    <span className="font-technical-sm text-[10px] lowercase tracking-[0.08em] text-secondary">
+                      {project.stack}
+                    </span>
+                  </div>
+                  <div className="mt-auto">
+                    <h3 className="font-display-lg text-[clamp(2.4rem,5vw,4.5rem)] font-bold leading-none tracking-[-0.045em] text-on-surface transition-colors duration-200 group-hover:text-primary">
+                      {project.name}
+                    </h3>
+                    <div className="mt-5 flex items-end justify-between gap-8 border-t border-outline-variant/50 pt-5">
+                      <p className="max-w-md text-base leading-6 text-on-surface-variant">
+                        {project.description}
+                      </p>
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0 text-2xl text-primary transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                      >
+                        ↗
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              ))}
             </div>
 
-            {/* Small Card 2 */}
-            <div className="md:col-span-4 glass-card rounded-3xl p-8 border border-tertiary/20 relative overflow-hidden group">
-              <div className="w-12 h-12 rounded-xl bg-tertiary/20 flex items-center justify-center mb-6 relative z-10">
-                <span className="material-symbols-outlined text-tertiary">
-                  biotech
-                </span>
-              </div>
-              <div className="relative z-10">
-                <h3 className="text-headline-md font-headline-md text-on-background mb-3">
-                  Self-Optimizing Models
-                </h3>
-                <p className="text-body-md font-body-md text-on-surface-variant mb-6">
-                  LLMs and deep learning architectures that adapt to data distributions and usage patterns.
-                </p>
-                <Link
-                  href="/projects"
-                  className="flex items-center gap-2 text-tertiary font-label-caps text-label-caps group-hover:text-primary transition-colors"
-                >
-                  DECODE_SEQUENCE
-                  <span className="material-symbols-outlined text-sm">
-                    arrow_forward
-                  </span>
-                </Link>
-              </div>
-              <span className="material-symbols-outlined absolute -bottom-6 -right-6 text-[120px] text-tertiary opacity-10 group-hover:scale-110 transition-transform duration-500">
-                biotech
-              </span>
-            </div>
-
-            {/* Horizontal Card */}
-            <div className="md:col-span-8 glass-card rounded-3xl p-8 md:p-12 border border-outline-variant/30 flex flex-col md:flex-row gap-8 items-center">
-              <div className="w-full md:w-1/3">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1W9WujdHTtY6kDWhlOHkZhV9XXegU9LlebHMlH1y5aLtytyeurnCmi9ii4grGh1xEMAy35gFYYV5GeSI3Fyy8uW4uJkSTk9ifQjN4VIlb29DE2NzbhXCyIAYGUpeLjLcW5Db2rxpOCBEJGMZnQHbU5HjYfuf-vRdCQ8MWlK0q2oU-wyanKptCjJTR0dCxBfDGtSkCLvSuZZd1GfS1bzgkKdAH42fBYaIUxIDRQh8jN8EFaRt4I03lrQycVaYEcptvvuUZ4uno3bTH"
-                  alt="Hardware Architecture"
-                  className="w-full h-full object-cover rounded-2xl aspect-square"
-                />
-              </div>
-              <div className="w-full md:w-2/3">
-                <div className="inline-block px-3 py-1 mb-4 rounded-sm bg-surface-container-high text-on-surface-variant border border-outline-variant/50 text-label-caps font-label-caps">
-                  SIGNAL_ANALYSIS
-                </div>
-                <h3 className="text-headline-md font-headline-md text-on-background mb-4">
-                  Scalable ML Architectures
-                </h3>
-                <p className="text-body-md font-body-md text-on-surface-variant mb-6">
-                  Bridging the gap between software capability and silicon constraints. Deploying multi-agent setups that balance cost, latency, and reasoning power.
-                </p>
-                <div className="flex gap-4">
-                  <span className="text-technical-sm font-technical-sm text-primary/60 border border-primary/20 px-2 py-1 rounded">
-                    HARDWARE_V4
-                  </span>
-                  <span className="text-technical-sm font-technical-sm text-secondary/60 border border-secondary/20 px-2 py-1 rounded">
-                    AUTO_REPAIR
-                  </span>
-                </div>
-              </div>
-            </div>
+            <p className="mt-8 text-sm text-on-surface-variant">
+              there&apos;s more on{" "}
+              <a
+                href="https://github.com/Martian-dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-secondary"
+              >
+                github
+              </a>
+              . some of it even has documentation.
+            </p>
           </div>
         </section>
+
+        <section
+          id="experience"
+          className="scroll-mt-20 border-t border-outline-variant/60 bg-surface-container-lowest px-margin-mobile py-24 md:px-margin-desktop md:py-32"
+        >
+          <div className="mx-auto grid max-w-container-max grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-gutter">
+            <header className="lg:col-span-5">
+              <p className="font-technical-sm text-xs lowercase tracking-[0.12em] text-primary">
+                experience
+              </p>
+              <h2 className="mt-3 max-w-lg font-display-lg text-[clamp(2.65rem,5.3vw,4.8rem)] font-bold leading-[0.94] tracking-[-0.05em] text-on-background">
+                where my brain cells went.
+              </h2>
+              <p className="mt-6 text-sm text-outline">
+                the useful version, not the corporate one.
+              </p>
+            </header>
+
+            <ol className="lg:col-span-7">
+              {experience.map((item, index) => (
+                <li
+                  key={item.title}
+                  className="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-outline-variant/60 py-8 first:border-t-0 lg:grid-cols-[3rem_9rem_1fr] lg:gap-5"
+                >
+                  <span className="font-technical-sm text-[10px] text-primary">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="hidden font-technical-sm text-[10px] lowercase tracking-[0.08em] text-outline lg:block">
+                    {item.when}
+                  </p>
+                  <div>
+                    <p className="font-technical-sm text-[10px] lowercase tracking-[0.08em] text-outline lg:hidden">
+                      {item.when}
+                    </p>
+                    <h3 className="mt-2 font-headline-md text-2xl font-semibold lowercase text-on-surface lg:mt-0 lg:text-3xl">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 max-w-xl text-base leading-7 text-on-surface-variant">
+                      {item.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {posts.length > 0 && (
+          <section
+            id="writing"
+            className="scroll-mt-20 border-t border-outline-variant/60 px-margin-mobile py-24 md:px-margin-desktop md:py-32"
+          >
+            <div className="mx-auto grid max-w-container-max grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-gutter">
+              <header className="lg:col-span-5">
+                <p className="font-technical-sm text-xs lowercase tracking-[0.12em] text-secondary">
+                  writing
+                </p>
+                <h2 className="mt-3 max-w-lg font-display-lg text-[clamp(2.65rem,5.3vw,4.8rem)] font-bold leading-[0.94] tracking-[-0.05em] text-on-background">
+                  things i wrote before i forgot them.
+                </h2>
+                <div
+                  aria-hidden="true"
+                  className="mt-8 font-display-lg text-6xl leading-none text-primary md:text-8xl"
+                >
+                  ↳
+                </div>
+              </header>
+
+              <div className="lg:col-span-7">
+                {posts.map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="group block border-t border-outline-variant/60 py-8 last:border-b lg:py-10"
+                  >
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-technical-sm text-[10px] lowercase tracking-[0.08em] text-outline">
+                      <time dateTime={post.publishedAt}>
+                        {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "2-digit",
+                          year: "numeric",
+                          timeZone: "UTC",
+                        })}
+                      </time>
+                      <span aria-hidden="true">/</span>
+                      <span>{post.readingTime} min read</span>
+                    </div>
+                    <h3 className="mt-4 max-w-2xl font-headline-md text-3xl font-semibold leading-tight text-on-surface transition-colors duration-200 group-hover:text-primary md:text-4xl">
+                      {post.title}
+                    </h3>
+                    <p className="mt-4 max-w-2xl text-base leading-7 text-on-surface-variant">
+                      {post.excerpt}
+                    </p>
+                    <div className="mt-6 flex items-center justify-between gap-5">
+                      <ul className="flex flex-wrap gap-2" aria-label="Article topics">
+                        {post.tags.map((tag) => (
+                          <li
+                            key={tag}
+                            className="rounded-full border border-outline-variant px-3 py-1 font-technical-sm text-[10px] lowercase text-outline"
+                          >
+                            {tag}
+                          </li>
+                        ))}
+                      </ul>
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0 text-2xl text-primary transition-transform duration-200 group-hover:translate-x-1"
+                      >
+                        →
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+
+                <Link
+                  href="/blog"
+                  className="mt-5 inline-flex min-h-11 items-center gap-2 font-technical-sm text-xs lowercase text-primary transition-colors duration-200 hover:text-secondary"
+                >
+                  rummage through all the writing <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
+
       </main>
+
       <Footer />
-      <MobileNav />
     </>
   );
 }

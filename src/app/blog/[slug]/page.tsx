@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Footer from "@/components/footer";
-import MobileNav from "@/components/mobile-nav";
 import Navbar from "@/components/navbar";
 import ReadingProgress from "@/components/reading-progress";
 import {
@@ -225,7 +224,6 @@ export default async function WritingPostPage({ params }: PageProps) {
         }}
       />
       <Footer />
-      <MobileNav />
     </>
   );
 }
