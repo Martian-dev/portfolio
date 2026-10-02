@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         {/* Material Symbols Outlined */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router root layout loads this icon font globally. */}
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"

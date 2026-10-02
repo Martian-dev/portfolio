@@ -2,30 +2,37 @@
   "name": "portfoliov2",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run typecheck && bun run lint"
   },
   "dependencies": {
-    "@heroicons/react": "^2.2.0",
-    "@radix-ui/react-icons": "^1.3.2",
-    "@vercel/analytics": "^1.6.1",
-    "firebase": "^10.14.1",
-    "next": "^16.2.6",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "usehooks-ts": "^3.1.1"
+    "@vercel/analytics": "2.0.1",
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
-    "@types/node": "^20.19.41",
-    "@types/react": "^18.3.29",
-    "@types/react-dom": "^18.3.7",
-    "postcss": "^8.5.15",
-    "tailwindcss": "^3.4.19",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "^16.2.6"
-  }
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.19.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.8",
+    "postcss": "8.5.28",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3"
+  },
+  "trustedDependencies": [
+    "unrs-resolver"
+  ]
 }

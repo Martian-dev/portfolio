@@ -39,7 +39,7 @@ export default function Navbar() {
         >
           <span
             aria-hidden="true"
-            className="size-2.5 rounded-sm bg-primary transition-transform duration-200 group-hover:rotate-45"
+            className="size-2.5 rounded-xs bg-primary transition-transform duration-200 group-hover:rotate-45"
           />
           <span className="sr-only">Vaibhav</span>
           <span

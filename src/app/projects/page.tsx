@@ -130,7 +130,7 @@ export default function Projects() {
           
           {/* Project 1: Featured */}
           <article className="md:col-span-8 frosted-leaf rounded-xl overflow-hidden vine-border transition-all duration-500 group relative flex flex-col">
-            <div className="h-[400px] overflow-hidden relative flex-shrink-0">
+            <div className="h-[400px] overflow-hidden relative shrink-0">
               <Image 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqQSo27Iz68Sql7JP7GL25Om2AZwPnr2vOgcJqdDIWR5VE5kiSr_nCnUDEo09eGV14cPcleJSno2xUQXtUUEpzLcdLy_B3z78Pn0x__mRKuVUXCYPuWCLXPBlAHyYiVrQSgxH9jk8rPavh4XubyCrsGTsWVorotar3guxvPWh3sU1zVnTD870e1yA92VrS-64dGfKNMiAH9q2LGTR28laNOMd9v7GWnvGkzC4a61z_l4QsB86aizY16r-BrrEs9EcVQ7rK-X5scoBi"
                 alt="Chlorophyll-AI V4"
@@ -176,7 +176,7 @@ export default function Projects() {
 
           {/* Project 2: Vertical */}
           <article className="md:col-span-4 frosted-leaf rounded-xl overflow-hidden vine-border transition-all duration-500 flex flex-col group relative">
-            <div className="h-56 overflow-hidden relative flex-shrink-0">
+            <div className="h-56 overflow-hidden relative shrink-0">
               <Image 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8mbxyTu7QE6HBbqhebv0U1Es8oadh3qHvLgJcgRng59VqAa1jY3dlNHyaebt42Z7nUJXvs-sLE_0hMkHJO7oANRliT9Q-Xjh6clo25pEREVj0VGc4Qg_NUMrc7gM4v3acvw37MNTGNsvOj242a5TZhAynCak_Cbn3tA438KOoL_jFs_tHFqmtrkpcYcS8HPrBxCWlIh--blB0PbQdH9g_ShLmtlxrMTWYdjq11_XqkaL-IMGHv13VWrTTuRiEUy8hLN6b5bUwQTbK"
                 alt="Root-Kernel 0x1"
@@ -236,7 +236,7 @@ export default function Projects() {
                   {[20, 40, 10, 80, 30, 60, 15, 100, 25].map((height, i) => (
                     <div 
                       key={i} 
-                      className="flex-grow rounded-t-sm transition-all duration-1000 bg-primary/60 hover:bg-primary"
+                      className="grow rounded-t-xs transition-all duration-1000 bg-primary/60 hover:bg-primary"
                       style={{ height: `${height}%` }}
                     />
                   ))}
@@ -285,7 +285,7 @@ export default function Projects() {
                   className="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-24 rounded-full border border-primary/20 bg-surface/50 backdrop-blur flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                  <div className="w-24 h-24 rounded-full border border-primary/20 bg-surface/50 backdrop-blur-sm flex items-center justify-center group-hover:border-primary/50 transition-colors">
                     <span className="material-symbols-outlined text-primary text-3xl">terminal</span>
                   </div>
                 </div>
