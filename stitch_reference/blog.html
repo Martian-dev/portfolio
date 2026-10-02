@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Signals // BIO-SYSTEMS Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&amp;family=Hanken+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#4de082",
+                    "outline": "#869486",
+                    "on-secondary-container": "#004d44",
+                    "inverse-surface": "#e0e4dc",
+                    "on-primary-fixed-variant": "#005227",
+                    "on-error": "#690005",
+                    "on-primary-container": "#005e2d",
+                    "surface-container": "#1d211c",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "on-tertiary": "#003824",
+                    "surface-container-low": "#191d18",
+                    "primary-fixed-dim": "#4de082",
+                    "on-secondary-fixed-variant": "#005047",
+                    "outline-variant": "#3d4a3e",
+                    "primary-fixed": "#6dfe9c",
+                    "on-primary": "#003919",
+                    "secondary-fixed": "#62fae3",
+                    "error": "#ffb4ab",
+                    "on-secondary": "#003731",
+                    "surface-container-high": "#272b26",
+                    "primary": "#6bfb9a",
+                    "on-tertiary-container": "#005d3f",
+                    "inverse-primary": "#006d36",
+                    "surface": "#101410",
+                    "on-background": "#e0e4dc",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#bccabb",
+                    "secondary-container": "#03c6b2",
+                    "tertiary-container": "#4bdca1",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-container-lowest": "#0b0f0b",
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed": "#002113",
+                    "surface-variant": "#323631",
+                    "inverse-on-surface": "#2d312c",
+                    "on-surface": "#e0e4dc",
+                    "on-primary-fixed": "#00210c",
+                    "tertiary": "#6cf9bb",
+                    "secondary": "#44e2cd",
+                    "tertiary-fixed": "#6ffbbe",
+                    "surface-container-highest": "#323631",
+                    "secondary-fixed-dim": "#3cddc7",
+                    "on-secondary-fixed": "#00201c",
+                    "primary-container": "#4ade80",
+                    "background": "#101410",
+                    "surface-bright": "#363a35",
+                    "surface-dim": "#101410"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Bricolage Grotesque"],
+                    "label-caps": ["JetBrains Mono"],
+                    "body-md": ["Hanken Grotesk"],
+                    "display-lg": ["Bricolage Grotesque"],
+                    "technical-sm": ["JetBrains Mono"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Bricolage Grotesque"]
+            },
+            "fontSize": {
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["72px", {"lineHeight": "80px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "technical-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101410;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4ade80;
+            border-radius: 10px;
+        }
+        .frosted-leaf {
+            backdrop-filter: blur(40px);
+            background-color: rgba(18, 26, 18, 0.7);
+            border: 1px solid rgba(74, 222, 128, 0.1);
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        .vine-progress {
+            transition: height 0.3s ease-out;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary min-h-screen">
+<!-- Reading Progress Indicator (Growing Vine) -->
+<div class="fixed right-0 top-0 w-1 bg-primary/20 z-[60] h-0 vine-progress origin-top" id="reading-vine">
+<div class="absolute bottom-0 -left-1.5 w-4 h-4 bg-primary rounded-full blur-[2px] animate-pulse"></div>
+</div>
+<!-- Navigation Shell (TopNavBar) -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface/70 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_0_rgba(0,20,0,0.6)]">
+<div class="flex justify-between items-center px-margin-desktop py-unit h-20 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md tracking-tighter text-primary dark:text-primary">BIO-SYSTEMS</div>
+<nav class="hidden md:flex gap-x-8 items-center h-full">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">Ecosystem</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">Research</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">Artifacts</a>
+<a class="text-primary dark:text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Signals</a>
+</nav>
+<div class="flex items-center gap-x-6">
+<div class="hidden lg:flex items-center bg-surface-variant/20 rounded-full px-4 py-1.5 border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-technical-sm font-technical-sm w-32 placeholder:text-outline" placeholder="Trace signal..." type="text"/>
+</div>
+<button class="flex items-center gap-x-2 text-primary">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-label-caps text-label-caps uppercase">Connect</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Side Navigation (Mobile Hidden) -->
+<!-- Main Content -->
+<main class="pt-32 pb-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto max-w-4xl">
+<!-- Hero Header -->
+<section class="mb-24">
+<div class="relative">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background max-w-3xl leading-tight">
+                    Frequency of the <span class="text-primary italic">Deep Web</span>.
+                </h1>
+<p class="mt-6 text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
+                    Dispatch from the intersection of carbon and silicon. Monitoring the growth of neural architectures and synthetic ecologies within the BIO-SYSTEMS core.
+                </p>
+<div class="mt-10 flex gap-x-4">
+<span class="px-4 py-1.5 rounded-full border border-primary/30 text-primary font-technical-sm text-technical-sm bg-primary/5">#AI_ETHICS</span>
+<span class="px-4 py-1.5 rounded-full border border-secondary/30 text-secondary font-technical-sm text-technical-sm bg-secondary/5">#NEURAL_BOTANY</span>
+<span class="px-4 py-1.5 rounded-full border border-tertiary/30 text-tertiary font-technical-sm text-technical-sm bg-tertiary/5">#SYSTEM_STABILITY</span>
+</div>
+</div>
+</section>
+<!-- Blog Feed -->
+<div class="space-y-40">
+<!-- Article 1 -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-gutter group cursor-pointer">
+<div class="md:col-span-1 hidden md:flex items-start justify-center">
+<div class="vertical-text text-label-caps font-label-caps text-outline group-hover:text-primary transition-colors tracking-widest pt-4">
+                        24.05.2024 // 14:02 UTC
+                    </div>
+</div>
+<div class="md:col-span-7 overflow-hidden rounded-xl border border-white/5 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent z-10 opacity-40"></div>
+<img alt="Neural Architecture" class="w-full aspect-[16/9] object-cover group-hover:scale-105 transition-transform duration-1000" data-alt="A macro photograph of a glowing translucent leaf where the veins are replaced by bright cyan microchips and circuit paths. The lighting is deep and moody with a bioluminescent emerald glow emanating from the organic structure. The background is a pitch-black digital void with floating particles of data light. The overall aesthetic is a high-tech organic fusion representing neural botany." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_XrI_vMeNEQ61U7dN-Bxe-Kt59gDDqktG4Fdfz3ZX1pQOVHoyvLJGcBjrvEFRMzkt11sOxaLehZA6zE-AA2jTBGK44rOKAzjHF0cXI5D5cPUC2lzXhoqO2i1nbOx-dM2v_BN6lwYKzGXN-XnF6zp5v2u1OEu97k_Vgv98RE1nnPMfqjIy8BtEaJ8bfubqtqEo3Ro78dl_SOD7NRlkdePqS6adqku2bRdTT63FNneLCb9LV5R6UTEKogerPtlI3k9dKxNT70XZYnQo"/>
+<div class="absolute top-6 left-6 z-20">
+<span class="bg-primary text-on-primary font-label-caps text-technical-sm px-3 py-1 rounded">SYSTEMS</span>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col justify-center space-y-4">
+<h2 class="font-headline-md text-headline-md text-on-surface leading-tight group-hover:text-primary transition-colors">
+                        Synthesizing Neural Moss: The New Data Layer
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Our research into carbon-based neural lattices has yielded a new form of volatile memory that mimics the resilience of rainforest moss systems.
+                    </p>
+<div class="flex items-center gap-x-4 pt-4">
+<span class="text-technical-sm font-technical-sm text-outline">Read Time: 12m</span>
+<div class="flex-grow h-px bg-outline/20"></div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Article 2 -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-gutter group cursor-pointer">
+<div class="md:col-span-4 order-2 md:order-1 flex flex-col justify-center space-y-4 text-right">
+<h2 class="font-headline-md text-headline-md text-on-surface leading-tight group-hover:text-secondary transition-colors">
+                        Automated Guardians: AI in Post-Digital Ecosystems
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Deploying autonomous monitoring drones that utilize swarm intelligence to preserve delicate synthetic biomes from thermal leakage.
+                    </p>
+<div class="flex items-center gap-x-4 pt-4 flex-row-reverse">
+<span class="text-technical-sm font-technical-sm text-outline">Read Time: 08m</span>
+<div class="flex-grow h-px bg-outline/20"></div>
+<span class="material-symbols-outlined text-secondary group-hover:-translate-x-2 transition-transform">arrow_back</span>
+</div>
+</div>
+<div class="md:col-span-7 order-1 md:order-2 overflow-hidden rounded-xl border border-white/5 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent z-10 opacity-40"></div>
+<img alt="AI Guardians" class="w-full aspect-[16/9] object-cover group-hover:scale-105 transition-transform duration-1000" data-alt="A futuristic orbital view of a dark planet surface covered in glowing teal network lines that look like a global root system. Soft purple atmospheric haze drifts across the scene with glints of light from orbital satellites. The mood is cinematic and vast, showing the integration of planetary systems and artificial intelligence. The colors are dominated by deep navy, cyan, and subtle violets." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8Zyjv33t2c0damc5EAXwiAEzXkRNsoMqP4FqDXlGDE6clm0E5A5fTmiSVJcqJaNu5U5VTFIjR0PmaGco8AkAcYEnIPwDY0qJvg9aVJlJhYskGqCU0YINVACY4OYcBx_PXGLEEn29wnpT8qpz_UeUhD3aThHLiBxmQMX4mD4stggS_Du5itoTbgtV2l837sX5g7OzmeRQz3YZ6y31XChCsIpTc7SLKE0clSjJ6IxCrx91-GNTgpnxcGhrE6-V0tUwjQN4eVQ9P6ZJR"/>
+<div class="absolute top-6 right-6 z-20">
+<span class="bg-secondary text-on-secondary font-label-caps text-technical-sm px-3 py-1 rounded">NEURAL NET</span>
+</div>
+</div>
+<div class="md:col-span-1 hidden md:flex items-start justify-center order-3">
+<div class="vertical-text text-label-caps font-label-caps text-outline group-hover:text-secondary transition-colors tracking-widest pt-4">
+                        18.05.2024 // 09:45 UTC
+                    </div>
+</div>
+</article>
+<!-- Article 3 -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-gutter group cursor-pointer">
+<div class="md:col-span-1 hidden md:flex items-start justify-center">
+<div class="vertical-text text-label-caps font-label-caps text-outline group-hover:text-tertiary transition-colors tracking-widest pt-4">
+                        12.05.2024 // 21:18 UTC
+                    </div>
+</div>
+<div class="md:col-span-11 relative">
+<div class="frosted-leaf p-12 rounded-2xl flex flex-col md:flex-row gap-12 items-center hover:bg-surface-container-high/50 transition-all duration-500 overflow-hidden">
+<div class="md:w-1/2 space-y-6">
+<span class="text-tertiary font-technical-sm text-technical-sm tracking-[0.2em]">LONG FORM // SIGNALS</span>
+<h2 class="font-headline-md text-[40px] leading-tight text-on-surface">The Silicified Jungle: Mapping the Abandoned Nodes</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">An expedition into the dead-zones of the old web where self-replicating scripts have formed a primitive artificial ecosystem without human oversight.</p>
+<button class="px-8 py-3 bg-tertiary text-on-tertiary font-label-caps text-label-caps rounded-full glow-hover transition-all">BEGIN ARCHIVE ACCESS</button>
+</div>
+<div class="md:w-1/2">
+<img alt="Silicified Jungle" class="rounded-xl shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="A dark corridor of an abandoned server room overrun by glowing green vines and technological overgrowth. Wires hang like lianas from the ceiling, sparking with dim energy. The air is thick with neon-tinted dust motes. The style is industrial ruin meets lush bioluminescent nature. Deep greens, neon sparks, and charcoal grays define the heavy atmospheric depth of the image." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG9xKlK1neFRGeSg1soic2kdyLDlczDX4E0lWgxgzLIUHJu3By7xFWm_k8Xz5mxFPQJXEeO7ZvqqrVwXyNvPfs1xdv_c_7ZD-HHjdGT6HNZQegQ1fkv9L1AgdpQdrFyEe3pRSVxKjWdCH6iUw0m5YV9RqA6ODoDdhXFEH33GShzOfpCcYRXgXYbpC6cp6fEcBv2hU1ABYiw35UpnT53RhB_jF9ceq7TB2Rny_8JwuewOEgULbevGHaCwfml1sfWaK1QrSrgosdiRfp"/>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-40 flex justify-between items-center border-t border-outline-variant/20 pt-12">
+<button class="flex items-center gap-x-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">west</span>
+<span class="font-label-caps text-label-caps">PREVIOUS_SIGNALS</span>
+</button>
+<div class="flex gap-x-4">
+<span class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-on-primary font-technical-sm">01</span>
+<span class="w-10 h-10 flex items-center justify-center rounded-full text-outline hover:bg-surface-variant/20 font-technical-sm cursor-pointer">02</span>
+<span class="w-10 h-10 flex items-center justify-center rounded-full text-outline hover:bg-surface-variant/20 font-technical-sm cursor-pointer">03</span>
+</div>
+<button class="flex items-center gap-x-2 text-outline hover:text-primary transition-colors">
+<span class="font-label-caps text-label-caps">NEXT_SIGNALS</span>
+<span class="material-symbols-outlined">east</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="relative w-full py-16 bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-primary-container/20">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter px-margin-desktop max-w-container-max mx-auto">
+<div class="space-y-6">
+<div class="font-headline-md text-primary">BIO-SYSTEMS</div>
+<p class="text-body-md font-body-md text-outline">Monitoring the pulse of synthesized intelligence since the Great Convergence.</p>
+<div class="flex gap-x-4">
+<span class="material-symbols-outlined text-tertiary">public</span>
+<span class="material-symbols-outlined text-tertiary">hub</span>
+<span class="material-symbols-outlined text-tertiary">cloud_done</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-y-2">
+<a class="text-outline hover:text-tertiary transition-colors font-body-md text-body-md" href="#">GitHub</a>
+<a class="text-outline hover:text-tertiary transition-colors font-body-md text-body-md" href="#">ResearchGate</a>
+<a class="text-outline hover:text-tertiary transition-colors font-body-md text-body-md" href="#">ArXiv</a>
+</div>
+<div class="flex flex-col gap-y-2">
+<a class="text-primary underline font-body-md text-body-md" href="#">TechBlog</a>
+<a class="text-outline hover:text-tertiary transition-colors font-body-md text-body-md" href="#">NeuralLink</a>
+</div>
+</div>
+<div class="flex flex-col justify-between">
+<p class="text-technical-sm font-technical-sm text-outline uppercase tracking-widest">
+                    © 2024 BIO-SYSTEMS ARCHIVE // ALL RIGHTS RESERVED
+                </p>
+<div class="mt-8 md:mt-0 flex items-center justify-end">
+<div class="h-2 w-2 rounded-full bg-primary animate-ping mr-3"></div>
+<span class="text-technical-sm font-technical-sm text-primary">SYSTEM STATUS: OPTIMAL</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Reading Progress Indicator Logic
+        window.addEventListener('scroll', () => {
+            const vine = document.getElementById('reading-vine');
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            vine.style.height = scrolled + '%';
+        });
+
+        // Simple parallax effect for images on scroll
+        const articles = document.querySelectorAll('article');
+        window.addEventListener('scroll', () => {
+            articles.forEach(article => {
+                const img = article.querySelector('img');
+                if(img) {
+                    const rect = article.getBoundingClientRect();
+                    const visible = rect.top < window.innerHeight && rect.bottom > 0;
+                    if(visible) {
+                        const shift = (rect.top - window.innerHeight/2) * 0.05;
+                        img.style.transform = `translateY(${shift}px) scale(1.1)`;
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>
