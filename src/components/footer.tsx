@@ -7,7 +7,7 @@ const links = [
   { label: "kaggle", href: "https://www.kaggle.com/martian7/code", external: true },
   {
     label: "resume",
-    href: "https://drive.google.com/file/d/1w9pB3qPGOD1ds-C0W-ZpgHh6Z07nXlld/view?usp=sharing",
+    href: "https://drive.google.com/file/d/1KQ_TD2cEiG5imdXQosCFWw3GZ4Fmvsuu/view?usp=sharing",
     external: true,
   },
 ];
