@@ -8,55 +8,60 @@ import { getAllWritingPosts } from "@/lib/writing";
 const projects = [
   {
     index: "01",
-    name: "zen",
+    name: "agentops",
     description:
-      "my implementation of how a frictionless task scheduler is supposed to be.",
-    stack: "productivity / scheduling",
-    url: "https://github.com/Martian-dev/zen",
+      "an agent lifecycle platform with DAG workflows, tool orchestration, eval pipelines, prompt versioning, and traces. agents need supervision too.",
+    stack: "agents / evaluation",
+    url: "https://github.com/Martian-dev/agentops",
   },
   {
     index: "02",
-    name: "dash",
-    description: "a POSIX-compliant shell written in C++. because apparently one shell was not enough.",
-    stack: "c++ / systems",
-    url: "https://github.com/Martian-dev/dash",
+    name: "ai brain",
+    description:
+      "a Go assistant that routes between local and cloud models, remembers user context, and manages email and calendars behind approval gates.",
+    stack: "go / agent infrastructure",
+    url: "https://github.com/Martian-dev/ai-brain-infra",
   },
   {
     index: "03",
+    name: "skillsphere",
+    description:
+      "a gamified mobile app with agent-generated, scenario-based life-skills lessons, plus text-to-speech and multilingual support.",
+    stack: "react native / education",
+    url: "https://github.com/skills-bridge/backend",
+  },
+  {
+    index: "04",
     name: "protein.sh",
     description:
       "a terminal shop for fitness supplements, built while learning Go. niche? yes. fun? also yes.",
     stack: "go / terminal",
+    status: "work in progress",
     url: "https://github.com/Martian-dev/protein.sh",
-  },
-  {
-    index: "04",
-    name: "ace",
-    description:
-      "yes, another task management app. this one is aimed at teams and organizations.",
-    stack: "teams / productivity",
-    url: "https://github.com/Martian-dev/ace",
   },
 ];
 
 const experience = [
   {
-    when: "right now",
-    title: "applied AI & LLMs",
+    when: "jun — sep 2026",
+    company: "parsewave",
+    role: "ai/ml research engineer",
     description:
-      "building with agents, model workflows, and the mildly chaotic systems around them.",
+      "shipped 1,000+ RL environments and 5,000+ evaluated trajectories, then built the MCPs, harnesses, judges, and adversarial tasks behind them.",
   },
   {
-    when: "also right now",
-    title: "machine learning",
+    when: "jun — jul 2025",
+    company: "sciphics technology",
+    role: "ai application developer intern",
     description:
-      "learning the useful parts by building things, breaking them, and checking why.",
+      "deployed a telecom support agent that reduced manual work by about 40%, plus an ML system that improved water-leak detection by around 30%.",
   },
   {
-    when: "the prequel",
-    title: "general software things",
+    when: "may — jul 2025",
+    company: "enlight wisdom",
+    role: "full-stack developer intern",
     description:
-      "shells, schedulers, multiplayer games, web apps, and whatever seemed interesting that week.",
+      "designed and shipped responsive client websites with SEO and observability baked in — because deployment is only the beginning.",
   },
 ];
 
@@ -152,9 +157,16 @@ export default function Home() {
                     <span className="font-technical-sm text-[10px] text-outline">
                       {project.index}
                     </span>
-                    <span className="font-technical-sm text-[10px] lowercase tracking-[0.08em] text-secondary">
-                      {project.stack}
-                    </span>
+                    <div className="flex flex-wrap items-center justify-end gap-2">
+                      {project.status && (
+                        <span className="rounded-full border border-primary/30 bg-primary/10 px-2 py-1 font-technical-sm text-[9px] lowercase tracking-[0.08em] text-primary">
+                          {project.status}
+                        </span>
+                      )}
+                      <span className="font-technical-sm text-[10px] lowercase tracking-[0.08em] text-secondary">
+                        {project.stack}
+                      </span>
+                    </div>
                   </div>
                   <div className="mt-auto">
                     <h3 className="font-display-lg text-[clamp(2.4rem,5vw,4.5rem)] font-bold leading-none tracking-[-0.045em] text-on-surface transition-colors duration-200 group-hover:text-primary">
@@ -211,7 +223,7 @@ export default function Home() {
             <ol className="lg:col-span-7">
               {experience.map((item, index) => (
                 <li
-                  key={item.title}
+                  key={item.company}
                   className="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-outline-variant/60 py-8 first:border-t-0 lg:grid-cols-[3rem_9rem_1fr] lg:gap-5"
                 >
                   <span className="font-technical-sm text-[10px] text-primary">
@@ -225,8 +237,11 @@ export default function Home() {
                       {item.when}
                     </p>
                     <h3 className="mt-2 font-headline-md text-2xl font-semibold lowercase text-on-surface lg:mt-0 lg:text-3xl">
-                      {item.title}
+                      {item.company}
                     </h3>
+                    <p className="mt-2 font-technical-sm text-[10px] lowercase tracking-[0.08em] text-secondary">
+                      {item.role}
+                    </p>
                     <p className="mt-3 max-w-xl text-base leading-7 text-on-surface-variant">
                       {item.description}
                     </p>
