@@ -46,8 +46,15 @@ function PostArtwork({ post, index }: { post: WritingPost; index: number }) {
 }
 
 function ArticleMeta({ post }: { post: WritingPost }) {
+  const isDraft = post.tags.some((tag) => tag.toLowerCase() === "draft");
+
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-technical-sm text-[11px] uppercase tracking-[0.12em] text-on-surface-variant">
+      {isDraft && (
+        <span className="rounded-full border border-secondary/35 bg-secondary/10 px-2.5 py-1 text-secondary">
+          Draft
+        </span>
+      )}
       <time dateTime={post.publishedAt}>{formatWritingDate(post.publishedAt)}</time>
       <span aria-hidden="true" className="text-outline">
         /
