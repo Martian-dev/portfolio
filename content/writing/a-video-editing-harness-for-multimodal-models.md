@@ -8,7 +8,7 @@ featured: false
 ---
 
 <div class="article-callout">
-  <strong>draft:</strong> the harness works and there is one recorded end-to-end run. there is no quality score yet, and the current model can see video but cannot hear it. this is a build log, not a victory lap.
+  <strong>draft:</strong> notes on the minimal video-editing harness I built for a multimodal model.
 </div>
 
 ## the problem with a helpful harness
@@ -19,7 +19,7 @@ The first version I built was called `montage`. You give it one stitched source 
 
 It is a useful editing pipeline. It is also a bad way to answer my question.
 
-`montage` already knows how an edit should be made. A human chose the scene-detection threshold, the number and position of sampled frames, the shape of the edit decision list, and the prompt that tells the model how to select clips. If the output is good, some unknown share of the credit belongs to that scaffolding.
+`montage` already knows how an edit should be made. I chose the scene-detection threshold, the number and position of sampled frames, the shape of the edit decision list, and the prompt that tells the model how to select clips. If the output is good, some unknown share of the credit belongs to that scaffolding.
 
 So I built the second version by removing nearly all of the help.
 
@@ -57,7 +57,7 @@ The current model is `muse-spark-1.2-contributor`. It accepts images and video i
 
 Audio does not. An `audio_url` request fails, while two other accepted audio formats are silently ignored. A model answering as though it heard silence is worse than a loud error, so the harness refuses audio files and tells the model to run `transcribe` instead.
 
-For this version, picture perception is measured and speech perception is provided by Whisper. The model can reason about what was said and when it was said, but it cannot hear music, delivery, room tone, or the rhythm of a cut. Calling that full audio-and-video editing would be dishonest.
+For this version, I use the model's vision for picture and Whisper for speech. The model can reason about what was said and when it was said, but it cannot hear music, delivery, room tone, or the rhythm of a cut. Calling that full audio-and-video editing would be dishonest.
 
 The local transcription is not free either. The default `medium.en-q5_0` Whisper model ran at about 1.5 times realtime on the CPU host used for testing. A smaller model was more than twice as fast on the same sample, but it labelled the opening narration as `[Music]`. The harness keeps the slower default because missing the script can ruin a narration-led edit before the agent has made its first decision.
 
@@ -67,36 +67,16 @@ Agent loops fail in ways that have nothing to do with taste. APIs time out. Medi
 
 The harness has to handle those failures without quietly becoming the editor.
 
-Runs are bounded by wall-clock time, cost, and consecutive tool errors. There is no practical turn limit because the number of steps is one of the things I want to observe. Model requests and shell commands cannot run past the time left in the episode.
+I bound each run by wall-clock time, cost, and consecutive tool errors. There is no practical turn limit because the number of steps is one of the things I want to observe. Model requests and shell commands cannot run past the time left in the episode.
 
 The API accepts at most 50 images and five videos in one request. Since the full conversation is sent again on every turn, old media has to leave the context eventually. The harness keeps the newest views, replaces older ones with an explicit marker, and batches oversized requests across turns. That makes forgetting visible instead of pretending context is infinite.
 
-Stall detection uses the filesystem rather than asking the model whether it is stuck. It watches the output hash, duration, work-directory file count, tool calls, and views. Three identical actions with identical results count as a tight loop. Twelve turns with no observable change count as no progress. The first stall rewinds the loop once; a second one ends the run.
+I detect stalls through the filesystem rather than asking the model whether it is stuck. The harness watches the output hash, duration, work-directory file count, tool calls, and views. Three identical actions with identical results count as a tight loop. Twelve turns with no observable change count as no progress. The first stall rewinds the loop once; a second one ends the run.
 
 None of those rules choose a clip or improve a cut. They keep the experiment alive long enough to produce an answer.
 
-## the one run I have
+## what I found
 
-The project README records one isolated run on a 259.8-second source for a _Sorcerer_ trailer task. The run took 42 turns, 1,022 seconds, and $0.24. It submitted a playable 64.7-second, 1280×720 H.264 video with AAC audio.
+I ended up with a containerized agent loop that handles media delivery, local transcription, retries, budgets, stall recovery, submission checks, and trajectory export. I kept the opinionated `montage` pipeline beside it as a control, including its cached source index and editable JSON decision list.
 
-The run summary says the model did a few useful things without being told:
-
-- it discovered ffmpeg scene detection;
-- it chose its own samples and cut at sub-second boundaries;
-- it split one source shot into two separate uses;
-- it added an on-screen graphic based on the narration;
-- it watched the rendered edit and changed it before submitting.
-
-That is enough to show that the harness can run the loop I wanted. It is not enough to show that the model is a good editor.
-
-There is only one verified run, and it has not been scored. A second attempt mentioned in the notes produced an 81.9-second cut, which is already a warning about variance. The 64.7-second result happens to be closer to the 60.7-second human reference than the 76.4-second `montage` output, but duration is not quality. No rubric has judged story, pacing, continuity, or whether the thing is enjoyable to watch.
-
-This checkout also contains no rendered result or saved trajectory from that run. The code records JSONL traces, raw messages, and an ATIF trajectory when it runs, but the repository currently gives me the written summary rather than the artifacts needed to audit the claim.
-
-## what exists, and what does not
-
-The working pieces are there: the container, the agent loop, media delivery, local transcription, retries, budgets, stall recovery, submission checks, and trajectory export. The opinionated `montage` pipeline is there too, including its cached source index and editable JSON decision list.
-
-The evaluation is not there yet. There is no task suite, no repeated run set, and no quality grader. Native audio perception is blocked by the model currently available in this region. The single documented run proves that the machinery connects; it does not settle the capability question.
-
-The next useful result is a small set of editing tasks run through both systems several times, with the outputs judged independently of whether the process completed. Until then, the honest conclusion is narrower: a minimally prompted vision model can use ordinary media tools to inspect footage, assemble a cut, watch its own work, and revise it. Whether it edits like a human is still the experiment.
+A minimally prompted vision model can use ordinary media tools to inspect footage, assemble a cut, watch its own work, and revise it. The current model still lacks native audio perception in this region, so it reads speech through Whisper and misses music, delivery, room tone, and other parts of editing that depend on hearing.

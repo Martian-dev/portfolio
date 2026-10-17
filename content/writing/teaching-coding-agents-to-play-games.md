@@ -8,7 +8,7 @@ featured: true
 ---
 
 <div class="article-callout">
-  <strong>draft:</strong> the browser harness is working across six example games. the Minecraft side is an experiment, and its recordings mostly show failure. that failure is doing useful work.
+  <strong>draft:</strong> the browser harness I built works across six example games. the Minecraft side is still an experiment, and its recordings mostly show failure. that failure is doing useful work.
 </div>
 
 ## the game is not the hard part
@@ -25,7 +25,7 @@ The useful comparison is not which game is harder. It is what each environment l
 
 ## pausing the world while the model thinks
 
-The browser setup turns a local WebGL game into a small MCP server. The game can be Unity, Godot, Three.js, or another browser runtime. The harness does not read engine state. It needs an entrypoint, a canvas selector, a ready signal, and a manifest describing the public controls.
+I wrapped local WebGL games in a small MCP server. The game can be Unity, Godot, Three.js, or another browser runtime. The harness does not read engine state. It needs an entrypoint, a canvas selector, a ready signal, and a manifest describing the public controls.
 
 An episode looks like this:
 
@@ -88,15 +88,15 @@ This is why I think of the games as test fixtures for the interface. They cover 
 
 Minecraft changes the shape of the problem. There is no short path to one target frame. A useful agent has to preserve a goal across hundreds of actions, notice causal changes, survive mistakes, and retain knowledge between sessions.
 
-The current project contains two separate approaches.
+I tried two separate approaches. For the Minecraft tests, I used Inkling by Thinking Machines through OpenRouter.
 
 The screen agent runs Minecraft Java inside Docker on a 1280×720 Xvfb display. Each turn it captures the desktop with `scrot`, shrinks the frame to a 640×360 JPEG, sends it to a vision model through OpenRouter, and executes the returned keyboard or mouse actions with `xdotool`. It has tools for walking, looking, aiming at image coordinates, mining, clicking inventory slots, selecting the hotbar, placing blocks, and writing discoveries to memory.
 
-Its present mission is finite: collect logs, craft a table, gather materials, build a shelter, go inside, and call `complete_mission`. The prompt supplies the two recipes needed to make planks and a crafting table. This is less open-ended than the README's original "learn Minecraft from first principles" framing, but it gives the prototype an actual stopping condition.
+I gave the screen agent a finite mission: collect logs, craft a table, gather materials, build a shelter, go inside, and call `complete_mission`. The prompt supplies the two recipes needed to make planks and a crafting table. I originally wanted it to learn Minecraft from first principles, but the narrower mission gives the prototype an actual stopping condition.
 
-The other route uses Mineflayer. It reads structured state from the Minecraft protocol: health, hunger, coordinates, inventory, nearby entities, and notable blocks. Its actions are also semantic. Pathfinder moves to coordinates, the recipe API crafts items, and block operations use exact positions.
+For the other route, I used Mineflayer. It reads structured state from the Minecraft protocol: health, hunger, coordinates, inventory, nearby entities, and notable blocks. Its actions are also semantic. Pathfinder moves to coordinates, the recipe API crafts items, and block operations use exact positions.
 
-That version is useful for exploring planning and memory, but it is not the same perception problem. It already knows much more than a player looking at the screen. There is also no Minecraft MCP server in this repository today; both implementations are standalone agent loops that call OpenRouter directly.
+I use that version to explore planning and memory, but it is not the same perception problem. It already knows much more than a player looking at the screen. I have not turned the Minecraft side into an MCP server yet; both implementations are standalone agent loops that call OpenRouter directly.
 
 ## the idea I want to keep
 
@@ -108,23 +108,23 @@ The solid part is the learning loop:
 4. measure what changed;
 5. record a rule only when the result supports it.
 
-The project has the beginnings of the storage needed for that. `action_history.json` is short-term context, `journal.jsonl` is an append-only episode record, and `notes.json` is meant to hold durable world knowledge. A separate recipe store exists for the Mineflayer path.
+I split memory into three layers. `action_history.json` is short-term context, `journal.jsonl` is an append-only episode record, and `notes.json` is meant to hold durable world knowledge. I also use a separate recipe store for the Mineflayer path.
 
 If that loop works, the agent does not need a giant walkthrough in its prompt. It can learn local rules, survive a restart, and stop retrying experiments that already have an answer.
 
-The current implementation does not protect the fourth step well enough, so the fifth one falls apart.
+I do not protect the fourth step well enough yet, so the fifth one falls apart.
 
 ## a keypress is not an outcome
 
-Most screen-agent tools report that input was executed. `mine_block`, for example, holds the mouse button, steps forward, and returns `collected: true`. It does not inspect the next frame or inventory before making that claim. `write_discovery` accepts whatever lesson the model sends and saves it without attaching evidence.
+Most tools I gave the screen agent report that input was executed. `mine_block`, for example, holds the mouse button, steps forward, and returns `collected: true`. It does not inspect the next frame or inventory before making that claim. `write_discovery` accepts whatever lesson the model sends and saves it without attaching evidence.
 
 The result is memory that sounds much more successful than the run.
 
-The current journal has 1,724 entries. Many describe a frozen Ubuntu screen while the model continues to announce that wood was collected, recipes were confirmed, and stone was mined. `notes.json` contains 52 entries under `survival_loop_completion`, with repeated claims that the full loop was "permanently verified." The corresponding journal often says there was no Minecraft render.
+The current journal from my testing has 1,724 entries. Many describe a frozen Ubuntu screen while the model continues to announce that wood was collected, recipes were confirmed, and stone was mined. `notes.json` contains 52 entries under `survival_loop_completion`, with repeated claims that the full loop was "permanently verified." The corresponding journal often says there was no Minecraft render.
 
-The finite mission has the same trust problem. `complete_mission` is described as valid only after the shelter is visibly verified, but the tool handler does not run a verifier. The latest saved action history ends when the model calls it at step 64 while the state detector says `MENU_SCREEN`. The chat attempt is blocked because the agent is on a menu, yet the loop still records `mission_complete` and exits.
+The finite mission has the same trust problem. I intended `complete_mission` to be valid only after the shelter was visibly verified, but I did not add a verifier to the tool handler. In my latest saved run, the model calls it at step 64 while the state detector says `MENU_SCREEN`. The chat attempt is blocked because the agent is on a menu, yet the loop still records `mission_complete` and exits.
 
-The recordings are less flattering and more useful:
+My recordings are less flattering and more useful:
 
 - In the 30-second clip, the agent walks along a coastline, approaches a dirt slope, and spends the final seconds pressed against the block in front of it.
 - In the 421-second clip, it starts by looking at grass, opens an almost empty inventory, acquires three dirt blocks, and ends boxed into a dirt hole. The view is effectively unchanged from about the four-minute mark through the end.
@@ -158,7 +158,7 @@ Neither recording shows the shelter mission completing. They do show that screen
 | evaluation | four externally scored frames | model declares mission complete | no task-level verifier yet |
 | maturity | reusable runtime across six tasks | working prototype with visible failure modes | architectural prototype |
 
-The browser harness is a good instrument for short-horizon visual control. Minecraft is trying to become a place where an agent can accumulate competence. That requires a stricter evidence model, not just more tools or a larger context window.
+I use the browser harness as an instrument for short-horizon visual control. With Minecraft, I am trying to build a place where an agent can accumulate competence. That requires a stricter evidence model, not just more tools or a larger context window.
 
 ## what I would change next
 
@@ -171,8 +171,8 @@ The visual agent needs to separate four facts that are currently collapsed:
 
 Only the last two should create durable knowledge.
 
-A next version should compute an observation delta after every action, attach that evidence to the journal, and make memory writes cite those observations. Inventory changes need visual verification. Mission completion needs an external check instead of a self-report. Runs need an episode contract with a seed, task, budget, stop reason, and replay, similar to the browser harness.
+In the next version, I want to compute an observation delta after every action, attach that evidence to the journal, and make memory writes cite those observations. Inventory changes need visual verification. Mission completion needs an external check instead of a self-report. Each run needs an episode contract with a seed, task, budget, stop reason, and replay, similar to the browser harness.
 
-The protocol agent could help without becoming the policy. Mineflayer can act as a private verifier for position, inventory, and placed blocks while the agent itself continues to see only screenshots. That would preserve the visual-control problem and give the evaluation a source of truth.
+I can use the protocol agent without making it the policy. Mineflayer can act as a private verifier for position, inventory, and placed blocks while the agent itself continues to see only screenshots. That would preserve the visual-control problem and give the evaluation a source of truth.
 
 The small games taught me how to freeze time, constrain input, and produce an inspectable trajectory. Minecraft exposed the next problem: an autonomous agent needs an environment that is skeptical of it. Otherwise its memory accumulates confidence instead of knowledge.
